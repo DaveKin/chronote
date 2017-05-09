@@ -1,6 +1,80 @@
+$grid-unit: 10px;
+$button-active: white;
+$button-inactive: grey;
+
 body {
-  min-width: 300px;
-  min-height: 200px;
+  width: ($grid-unit * 30);
+  min-height: ($grid-unit * 20);
   background-color: #444444;
   color: #ffffff;
+  padding: $grid-unit;
+}
+
+.main_nav {
+  display: flex;
+  flex-direction: row;
+}
+
+.button_write {
+  -webkit-appearance: none;
+  background-color: $button-active;
+  border-style: none;
+  flex-basis: 50%;
+
+  &:focus{
+    outline-style: none;
+  }
+
+  .review & {
+    background-color: $button-inactive;    
+  }
+}
+
+.button_review {
+  -webkit-appearance: none;
+  border-style: none;
+  background-color: $button-active;
+  flex-basis: 50%;
+
+  &:focus{
+    outline-style: none;
+  }
+
+  .write & {
+    background-color: $button-inactive;    
+  }
+}
+
+.section_write {
+  margin-top: $grid-unit;
+  display: flex;
+  flex-direction: column;
+
+  .review & {
+    display: none;
+  }
+}
+
+.section_review {
+  margin-top: $grid-unit;
+  display: flex;
+
+  .write & {
+    display: none;
+  }
+}
+
+.input_write {
+  display: block;
+  width: 100%;
+  flex-basis: ($grid-unit * 15);
+  margin-bottom: $grid-unit;
+
+  &:focus{
+    //outline-style: none;
+  }
+}
+
+.button_save {
+  display: block;
 }
