@@ -1,5 +1,6 @@
 # chronote
 chrome extension for note taking
+https://chrome.google.com/webstore/detail/chronote/bhbahlojokcljljlicefidjlpabjghjd
 
 ## Thought process
 Build as Chrome extension - no mobile usage but reasoned that for note taking, the user is likely to be using a keyboard.
