@@ -57,12 +57,23 @@ body {
 
 .section_review {
   margin-top: $grid-unit;
+  max-height: ($grid-unit * 30);
+  overflow-x: hidden;
+  overflow-y: auto;
   display: flex;
+  flex-direction: column;
 
   .write & {
     display: none;
   }
 }
+
+.list_item {
+  border-bottom: 1px solid grey;
+}
+.list_date {}
+.list_note {}
+.list_url {}
 
 .input_write {
   display: block;
