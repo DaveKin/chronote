@@ -3,6 +3,7 @@ $button-active: white;
 $button-inactive: grey;
 
 $border: 1px solid grey;
+$border-radius: 3px;
 
 body {
   width: ($grid-unit * 30);
@@ -22,6 +23,7 @@ body {
   background-color: $button-active;
   border-style: none;
   flex-basis: 50%;
+  border-radius: $border-radius 0 0 $border-radius;
 
   &:focus{
     outline-style: none;
@@ -37,6 +39,7 @@ body {
   border-style: none;
   background-color: $button-active;
   flex-basis: 50%;
+  border-radius: 0 $border-radius $border-radius 0;
 
   &:focus{
     outline-style: none;
@@ -57,6 +60,10 @@ body {
   }
 }
 
+.input_write{
+  border-radius: $border-radius;
+}
+
 .section_review {
   margin-top: $grid-unit;
   max-height: ($grid-unit * 20);
@@ -72,11 +79,27 @@ body {
 
 .list_item {
   border-bottom: $border;
+  display: flex;
+  justify-content: space-around;
 }
-.list_date {}
-.list_note {}
-.list_url {}
-
+.list_date {
+  font-weight: bold;
+}
+.list_note {
+  flex-grow: 2;
+  padding-left: $grid-unit;
+  padding-right: $grid-unit;
+}
+.list_url {
+  cursor: pointer;
+  padding-left: $grid-unit;
+  padding-right: $grid-unit;
+  color: #ff9933;
+}
+.list_delete {
+  cursor: pointer;
+  color: #ff3333;
+}
 .input_write {
   display: block;
   width: 100%;
@@ -90,4 +113,8 @@ body {
 
 .button_save {
   display: block;
+  -webkit-appearance: none;
+  border-radius: $border-radius;
+  border-style: none;
+  padding: $grid-unit;
 }

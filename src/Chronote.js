@@ -65,7 +65,8 @@ class Chronote {
   }
 
   saveNote() {
-    this.notes.push({
+    //using unshift to list data most recent first (until sort added)
+    this.notes.unshift({
       timestamp: Date.now(),
       url: this.url,
       note: this.writeInput.value
@@ -83,11 +84,11 @@ class Chronote {
       let itemdate = new Date(note.timestamp);
       this.reviewSection.insertAdjacentHTML(
         'beforeend',
-        `<div class="list_item" data-index="${index}">
+        `<div class="list_item" data-tstamp="${note.timestamp}">
         <span class="list_date">${itemdate.toLocaleDateString()}</span>
         <span class="list_note">${note.note}</span>
-        <span class="list_url">${note.url}</span>
-        <span class="list_delete">delete</span>
+        <span class="list_url" title="${note.url}" data-link="${note.url}">&#x1f517;</span>
+        <span class="list_delete">&#x2716;</span>
         </div>`
       );  
       index ++;
@@ -100,10 +101,20 @@ class Chronote {
     while(item.className != 'list_item'){
       item = item.parentElement;
     }
+    // delete click
     if(src.className === 'list_delete'){
-      this.notes.splice(parseInt(item.dataset['index']), 1);
+      let i = this.notes.findIndex((note) => {
+        return note.timestamp.toString() === item.dataset['tstamp'];
+      });
+      if(i > -1){
+        this.notes.splice(i, 1);
+      }
       this.setData();
       this.renderList();
+    }
+    // link click
+    if(src.className === 'list_url'){
+      chrome.tabs.create({url: src.dataset.link});
     }
   }
 
