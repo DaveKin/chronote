@@ -2,7 +2,7 @@ class Chronote {
 
   constructor() {
     this.bind();
-    this.getURL(this.urlLoaded);
+    this.getURL();
   }
 
   bind() {
@@ -26,7 +26,10 @@ class Chronote {
       this.saveNote();
     });
 
-    this.renderList()
+    this.reviewSection.addEventListener('click', (e) => {
+      this.listHandler(e);
+    })
+
   }
 
   getData() {
@@ -49,46 +52,59 @@ class Chronote {
     if(mode==='write'){
       this.focusInput();
     }
-  }
-
-  urlLoaded(url) {
-    this.url = url;
-    //this.reviewSection.innerText = this.url;
+    if(mode==='review'){
+      this.renderList();
+    }
   }
 
   // get the url for the current tab
-  getURL(callback) {
+  getURL() {
     chrome.tabs.query({currentWindow: true, active: true}, (tabs) => {
-      this.urlLoaded(tabs[0].url);
+      this.url = tabs[0].url;
     });
   }
 
   saveNote() {
-    var note = {
+    this.notes.push({
       timestamp: Date.now(),
       url: this.url,
       note: this.writeInput.value
-    }
-    this.notes.push(note);
-    this.renderList()
+    });
     this.setData();
+    this.renderList()
+    this.setMode('review');
+    this.writeInput.value = '';
   }
 
   renderList(){
     this.reviewSection.innerHTML = '';
-    for (var i = this.notes.length - 1; i >= 0; i--) {
-      let itemdate = new Date(this.notes[i].timestamp);
+    for (let note of this.notes) {
+      let index = 0;
+      let itemdate = new Date(note.timestamp);
       this.reviewSection.insertAdjacentHTML(
         'beforeend',
-        `<div class="list_item">
+        `<div class="list_item" data-index="${index}">
         <span class="list_date">${itemdate.toLocaleDateString()}</span>
-        <span class="list_note">${this.notes[i].note}</span>
-        <span class="list_url">${this.notes[i].url}</span>
-        <span class="list_close">close</span>
+        <span class="list_note">${note.note}</span>
+        <span class="list_url">${note.url}</span>
         <span class="list_delete">delete</span>
         </div>`
       );  
+      index ++;
     };
+  }
+
+  listHandler(e){
+    let src = e.srcElement;
+    let item = src;
+    while(item.className != 'list_item'){
+      item = item.parentElement;
+    }
+    if(src.className === 'list_delete'){
+      this.notes.splice(parseInt(item.dataset['index']), 1);
+      this.setData();
+      this.renderList();
+    }
   }
 
 }

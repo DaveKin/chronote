@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   var cn = new Chronote();
-  cn.setMode('write');
-  cn.focusInput();
+  // timeout required to allow input to be focused
+  window.setTimeout(() => {
+    cn.focusInput();    
+  }, 100);
 });

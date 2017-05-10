@@ -2,6 +2,8 @@ $grid-unit: 10px;
 $button-active: white;
 $button-inactive: grey;
 
+$border: 1px solid grey;
+
 body {
   width: ($grid-unit * 30);
   min-height: ($grid-unit * 20);
@@ -57,7 +59,7 @@ body {
 
 .section_review {
   margin-top: $grid-unit;
-  max-height: ($grid-unit * 30);
+  max-height: ($grid-unit * 20);
   overflow-x: hidden;
   overflow-y: auto;
   display: flex;
@@ -69,7 +71,7 @@ body {
 }
 
 .list_item {
-  border-bottom: 1px solid grey;
+  border-bottom: $border;
 }
 .list_date {}
 .list_note {}

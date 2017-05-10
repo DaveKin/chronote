@@ -30,3 +30,7 @@ gulp.task('clean', (cb) => {
   //clean
   return del('dist');
 })
+
+gulp.task('watch', () => {
+  gulp.watch('src/**/*.*', ['default']);
+});
